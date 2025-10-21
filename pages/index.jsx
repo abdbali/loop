@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { Inter } from 'next/font/google';
 
+const inter = Inter({ subsets: ['latin'] });
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-endpoint';
 
 export default function Home() {
@@ -32,8 +34,9 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-200 via-gray-100 to-gray-300 p-6">
+    <main className={`${inter.className} min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-200 via-gray-100 to-gray-300 p-6`}>
       <div className="flex flex-col items-center justify-center w-full max-w-md bg-white rounded-3xl shadow-2xl p-12 gap-8 border border-gray-200">
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -43,6 +46,7 @@ export default function Home() {
           <img src="/logo.png" alt="loopIDE logo" className="w-full h-full object-contain shadow-md" />
         </motion.div>
 
+        {/* Animated Title */}
         <motion.h1
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -52,6 +56,7 @@ export default function Home() {
           Join Waitlist
         </motion.h1>
 
+        {/* Form */}
         <motion.form
           onSubmit={handleSubmit}
           initial={{ opacity: 0, y: 20 }}
@@ -64,7 +69,7 @@ export default function Home() {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 px-6 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner"
+            className="flex-1 px-6 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner transition-all duration-300"
             required
           />
           <button
@@ -75,9 +80,10 @@ export default function Home() {
           </button>
         </motion.form>
 
-        {status === 'ok' && <p className="mt-4 text-green-600 font-medium text-center drop-shadow-sm">Thanks! You are on the waitlist.</p>}
-        {status === 'error' && <p className="mt-4 text-red-600 font-medium text-center drop-shadow-sm">There was an error submitting your email.</p>}
+        {/* Status Messages */}
+        {status === 'ok' && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-green-600 font-medium text-center drop-shadow-sm">Thanks! You are on the waitlist.</motion.p>}
+        {status === 'error' && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-red-600 font-medium text-center drop-shadow-sm">There was an error submitting your email.</motion.p>}
       </div>
-    </div>
+    </main>
   );
 }
