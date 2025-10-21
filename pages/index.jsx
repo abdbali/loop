@@ -1,63 +1,83 @@
-import { useState } from "react";
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-endpoint';
 
 export default function Home() {
-  const [email, setEmail] = useState("");
-  const [status, setStatus] = useState("");
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setStatus("Sending...");
-
+    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      setStatus('error');
+      return;
+    }
+    setStatus('pending');
     try {
-      const response = await fetch("https://formspree.io/f/your-endpoint", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email }),
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
       });
-
-      if (response.ok) {
-        setStatus("Thanks for signing up!");
-        setEmail("");
+      if (res.ok) {
+        setStatus('ok');
+        setEmail('');
       } else {
-        setStatus("Failed to submit. Try again.");
+        setStatus('error');
       }
-    } catch (error) {
-      setStatus("Failed to submit. Try again.");
+    } catch {
+      setStatus('error');
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black px-4">
-      <img
-        src="/logo.png"
-        alt="loopIDE logo"
-        className="w-[150px] h-[150px] object-contain mb-8"
-      />
-      <h1 className="text-3xl font-bold mb-4">Join the Waitlist</h1>
-      <p className="mb-6 text-center max-w-md">
-        Stay updated! Enter your email below to get early access.
-      </p>
-
-      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-        <input
-          type="email"
-          placeholder="Your email"
-          value={email}
-          required
-          onChange={(e) => setEmail(e.target.value)}
-          className="border border-black px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-        />
-        <button
-          type="submit"
-          className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 transition"
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-200 via-gray-100 to-gray-300 p-6">
+      <div className="flex flex-col items-center justify-center w-full max-w-md bg-white rounded-3xl shadow-2xl p-12 gap-8 border border-gray-200">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8 }}
+          className="w-[150px] h-[150px] mb-6"
         >
-          Join
-        </button>
-      </form>
+          <img src="/logo.png" alt="loopIDE logo" className="w-full h-full object-contain shadow-md" />
+        </motion.div>
 
-      {status && <p className="mt-4">{status}</p>}
+        <motion.h1
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
+          className="text-3xl font-bold text-center text-gray-800 drop-shadow-md"
+        >
+          Join Waitlist
+        </motion.h1>
+
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex flex-col sm:flex-row gap-4 w-full"
+        >
+          <input
+            type="email"
+            placeholder="Enter your email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="flex-1 px-6 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner"
+            required
+          />
+          <button
+            type="submit"
+            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-2xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
+          >
+            Join
+          </button>
+        </motion.form>
+
+        {status === 'ok' && <p className="mt-4 text-green-600 font-medium text-center drop-shadow-sm">Thanks! You are on the waitlist.</p>}
+        {status === 'error' && <p className="mt-4 text-red-600 font-medium text-center drop-shadow-sm">There was an error submitting your email.</p>}
+      </div>
     </div>
   );
 }
