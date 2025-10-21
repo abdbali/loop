@@ -41,9 +41,9 @@ export default function Home() {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8 }}
-          className="w-[150px] h-[150px] mb-6"
+          className="w-[350px] h-[350px] mb-6"
         >
-          <img src="/logo.png" alt="loopIDE logo" className="w-full h-full object-contain shadow-md" />
+          <img src="/logo.png" alt="loopIDE logo" className="w-full h-full object-contain" />
         </motion.div>
 
         {/* Animated Title */}
