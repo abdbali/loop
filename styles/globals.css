@@ -1,8 +1,45 @@
+/* globals.css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Body styling */
 body {
   margin: 0;
-  font-family: sans-serif;
+  font-family: 'Inter', sans-serif;
+  background-color: #f3f4f6;
+  color: #111;
+}
+
+/* Input styling */
+input {
+  transition: all 0.3s ease;
+}
+
+/* Button styling */
+button {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+/* Shadow classes for premium look */
+.shadow-md {
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0,0,0,0.15);
+}
+
+.shadow-xl {
+  box-shadow: 0 20px 25px rgba(0,0,0,0.2);
+}
+
+.drop-shadow-md {
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.drop-shadow-sm {
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
 }
