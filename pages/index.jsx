@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Inter } from 'next/font/google';
+import { FaGithub, FaInstagram } from 'react-icons/fa';
 
 const inter = Inter({ subsets: ['latin'] });
 const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-endpoint';
@@ -20,7 +21,7 @@ export default function Home() {
       const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+        body: JSON.stringify({ email }),
       });
       if (res.ok) {
         setStatus('ok');
@@ -34,55 +35,69 @@ export default function Home() {
   };
 
   return (
-    <main className={`${inter.className} min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-200 via-gray-100 to-gray-300 p-6`}>
-      <div className="flex flex-col items-center justify-center w-full max-w-md bg-white rounded-3xl shadow-2xl p-12 gap-8 border border-gray-200">
-        {/* Logo */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8 }}
-          className="w-[350px] h-[350px] mb-6"
-        >
-          <img src="/logo.png" alt="loopIDE logo" className="w-full h-full object-contain" />
-        </motion.div>
+    <main
+      className={`${inter.className} min-h-screen flex flex-col items-center justify-center bg-white text-gray-800 p-6`}
+    >
+      {/* Logo */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.8 }}
+        className="w-[350px] h-[350px] mb-8"
+      >
+        <img src="/logo.png" alt="loopIDE logo" className="w-full h-full object-contain" />
+      </motion.div>
 
-        {/* Animated Title */}
-        <motion.h1
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="text-3xl font-bold text-center text-gray-800 drop-shadow-md"
+      {/* Waitlist form */}
+      <motion.form
+        onSubmit={handleSubmit}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.3 }}
+        className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md"
+      >
+        <input
+          type="email"
+          placeholder="Enter your email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="flex-1 px-5 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm"
+          required
+        />
+        <button
+          type="submit"
+          className="px-6 py-3 bg-black text-white rounded-full hover:bg-gray-800 transition"
         >
-          Join Waitlist
-        </motion.h1>
+          Join
+        </button>
+      </motion.form>
 
-        {/* Form */}
-        <motion.form
-          onSubmit={handleSubmit}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="flex flex-col sm:flex-row gap-4 w-full"
+      {/* Status messages */}
+      {status === 'ok' && (
+        <p className="mt-3 text-green-600 text-sm">Thanks! You are on the waitlist.</p>
+      )}
+      {status === 'error' && (
+        <p className="mt-3 text-red-600 text-sm">There was an error submitting your email.</p>
+      )}
+
+      {/* Social links */}
+      <div className="flex gap-6 mt-10">
+        <a
+          href="https://github.com/abdbali/loop"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-700 hover:text-black transition text-2xl"
         >
-          <input
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="flex-1 px-6 py-3 border border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-inner transition-all duration-300"
-            required
-          />
-          <button
-            type="submit"
-            className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-2xl hover:bg-blue-700 transition-all shadow-lg hover:shadow-xl"
-          >
-            Join
-          </button>
-        </motion.form>
-
-        {/* Status Messages */}
-        {status === 'ok' && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-green-600 font-medium text-center drop-shadow-sm">Thanks! You are on the waitlist.</motion.p>}
-        {status === 'error' && <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-4 text-red-600 font-medium text-center drop-shadow-sm">There was an error submitting your email.</motion.p>}
+          <FaGithub />
+        </a>
+        <a
+          href="https://www.instagram.com/ideloop"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-gray-700 hover:text-black transition text-2xl"
+        >
+          <FaInstagram />
+        </a>
       </div>
     </main>
   );
