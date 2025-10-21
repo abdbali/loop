@@ -1,7 +1,6 @@
-# LoopIDE
+<img width="1919" height="940" alt="Ekran görüntüsü 2025-10-19 225200" src="https://github.com/user-attachments/assets/ff127f81-e31a-4ca0-aace-2cab2d34ccae" /># LoopIDE
 
-<img width="500" height="500" alt="logo1" src="https://github.com/user-attachments/assets/dae34bee-2409-4abe-9e9e-1fe8a5164cfd" />
-<img width="1919" height="940" alt="image" src="https://github.com/user-attachments/assets/b699a0d4-58e0-4206-999d-115ec5ea3e96" />
+
 
 
 ### A Modern Visual Programming Environment for Arduino and ESP Platforms
