@@ -1,82 +1,63 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-
-// Formspree endpoint (kendi endpoint'inizi buraya koyun)
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-endpoint';
+import { useState } from "react";
 
 export default function Home() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState(null);
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
-      setStatus('error');
-      return;
-    }
-    setStatus('pending');
+    setStatus("Sending...");
+
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
+      const response = await fetch("https://formspree.io/f/your-endpoint", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
       });
-      if (res.ok) {
-        setStatus('ok');
-        setEmail('');
+
+      if (response.ok) {
+        setStatus("Thanks for signing up!");
+        setEmail("");
       } else {
-        setStatus('error');
+        setStatus("Failed to submit. Try again.");
       }
-    } catch {
-      setStatus('error');
+    } catch (error) {
+      setStatus("Failed to submit. Try again.");
     }
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-100 to-gray-300 text-black p-6">
-      <motion.div
-        initial={{ opacity: 0, scale: 0.5 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        className="w-[150px] h-[150px] mb-6 shadow-lg rounded-full bg-white flex items-center justify-center"
-      >
-        <img src="/logo.png" alt="loopIDE logo" className="w-32 h-32 object-contain" />
-      </motion.div>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-white text-black px-4">
+      <img
+        src="/logo.png"
+        alt="loopIDE logo"
+        className="w-[150px] h-[150px] object-contain mb-8"
+      />
+      <h1 className="text-3xl font-bold mb-4">Join the Waitlist</h1>
+      <p className="mb-6 text-center max-w-md">
+        Stay updated! Enter your email below to get early access.
+      </p>
 
-      <motion.h1
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="text-3xl font-bold mb-4 text-center text-gray-800"
-      >
-        Join Waitlist
-      </motion.h1>
-
-      <motion.form
-        onSubmit={handleSubmit}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.5 }}
-        className="flex flex-col sm:flex-row gap-3 w-full max-w-md bg-white p-4 rounded-xl shadow-md"
-      >
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
         <input
           type="email"
-          placeholder="Enter your email"
+          placeholder="Your email"
           value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 px-4 py-3 border border-gray-400 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
           required
+          onChange={(e) => setEmail(e.target.value)}
+          className="border border-black px-4 py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-black"
         />
         <button
           type="submit"
-          className="px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+          className="bg-black text-white px-6 py-2 rounded-md hover:bg-gray-900 transition"
         >
           Join
         </button>
-      </motion.form>
+      </form>
 
-      {status === 'ok' && <p className="mt-4 text-green-600 font-medium">Thanks! You are on the waitlist.</p>}
-      {status === 'error' && <p className="mt-4 text-red-600 font-medium">There was an error submitting your email.</p>}
+      {status && <p className="mt-4">{status}</p>}
     </div>
   );
 }
