@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/your-endpoint'; // değiştir
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjkadlnd'; 
 
 export default function Home() {
   const [email, setEmail] = useState('');
