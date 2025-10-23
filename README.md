@@ -1,4 +1,7 @@
 <img width="1919" height="940" alt="Ekran görüntüsü 2025-10-19 225200" src="https://github.com/user-attachments/assets/ff127f81-e31a-4ca0-aace-2cab2d34ccae" />
+
+<img width="740" height="300" alt="merch" src="https://github.com/user-attachments/assets/41aa42e1-903b-4ef1-81d0-9e4783213528" />
+
 ### A Modern Visual Programming Environment for Arduino and ESP Platforms
 
 **LoopStudio** is a next-generation block-based visual editor for building Arduino and ESP projects without writing code manually.  
