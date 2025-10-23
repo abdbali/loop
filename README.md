@@ -2,6 +2,11 @@
 
 <img width="740" height="300" alt="merch" src="https://github.com/user-attachments/assets/41aa42e1-903b-4ef1-81d0-9e4783213528" />
 
+https://makerworld.com/en/@ideloop/upload
+
+<img width="1565" height="524" alt="image" src="https://github.com/user-attachments/assets/050c2c4c-6ceb-4ab1-b88b-a2cc5727ae29" />
+
+
 ### A Modern Visual Programming Environment for Arduino and ESP Platforms
 
 **LoopStudio** is a next-generation block-based visual editor for building Arduino and ESP projects without writing code manually.  
